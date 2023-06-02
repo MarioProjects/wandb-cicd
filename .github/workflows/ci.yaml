@@ -8,3 +8,5 @@ jobs:
     steps:
       - name: hello
         run: echo "Hello world 🎉"
+      - name: this will fail
+        run: exit 1
