@@ -1,0 +1,17 @@
+name: GitHub Actions Trigger Demo
+
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  trigger-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: my-job
+        run: |
+          echo "Hello"
+    
