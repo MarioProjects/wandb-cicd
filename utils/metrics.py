@@ -3,6 +3,7 @@ import torch
 def compute_accuracy(y_true, y_hat):
     """
     Computes the accuracy of the predictions y_hat against the true labels y_true
+    y_true and y_hast must have the same length and at least one element
 
     Args:
         y_true (torch.Tensor): true labels
