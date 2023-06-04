@@ -1,0 +1,34 @@
+name: "Unit & Smoke Tests - mamba"
+
+on:
+  pull_request:
+    paths:  # all python files in the repo
+      - '**.py'
+      
+  workflow_dispatch:
+
+# https://github.com/mamba-org/provision-with-micromamba#important
+defaults:
+  run:
+    shell: bash -el {0}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Copy Repository Contents
+        uses: actions/checkout@main   
+   
+      - name: Install Conda environment with Micromamba
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: conda-environment.yaml
+          environment-name: course  # same as in conda-environment.yaml
+          cache-env: true
+          cache-downloads: true
+          
+      - run: | # pytest installation can be done in the conda-environment.yaml
+          micromamba activate course
+          pip install -U pytest
+          pytest
