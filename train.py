@@ -8,5 +8,5 @@ dm = MNISTDataModule()
 dm.setup()
 
 model = ResnetModel()
-trainer = pl.Trainer(max_epochs=5, default_root_dir="resnet_checkpoints/")
+trainer = pl.Trainer(max_epochs=3, default_root_dir="resnet_checkpoints/")
 trainer.fit(model, dm)
