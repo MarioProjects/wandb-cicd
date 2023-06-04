@@ -28,7 +28,9 @@ jobs:
           cache-env: true
           cache-downloads: true
           
-      - run: | # pytest installation can be done in the conda-environment.yaml
-          micromamba activate course
-          pip install -U pytest
-          pytest
+      - name: Activate Conda environment
+        run: micromamba activate course
+
+      - name: Execute Tests
+        run: pytest
+
