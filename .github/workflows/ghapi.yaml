@@ -27,11 +27,11 @@ jobs:
           owner, repo = os.environ['REPO'].split('/')
           api = GhApi(owner=owner, repo=repo)
           api.issues.create_comment(
-            issue_number=os.environ['NUMBER'],
+            issue_number=os.environ['PR_NUMBER'],
             body='Hello world from a workflow job!'
           )
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
               
