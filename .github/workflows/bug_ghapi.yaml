@@ -1,4 +1,4 @@
-name: excercise-ghapi
+name: GHAPI Bug Labeling
 on: issue_comment
 
 permissions:
