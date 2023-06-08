@@ -1,0 +1,25 @@
+name: W&B Run Comparator
+on: issue_comment
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  wandb-run-comparator:
+    # check if the pull request body contains the string "/wandb-comparator"
+    if: (github.event.issue.pull_request != null) && contains(github.event.comment.body, '/wandb-comparator')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Run comparator
+        run: python wandb_comparator.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.issue.number }} 
+          PR_MESSAGE: ${{ github.event.comment.body }}
