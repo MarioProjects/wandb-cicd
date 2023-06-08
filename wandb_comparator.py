@@ -68,7 +68,7 @@ report.save()
 
 # if not running in CI, open the report in the browser
 # This is specially useful for testing the script locally instead of in CI
-if not os.get_env("CI"):
+if not os.getenv("CI"):
     print("Report URL: ", report.url)
     exit(0)
 
