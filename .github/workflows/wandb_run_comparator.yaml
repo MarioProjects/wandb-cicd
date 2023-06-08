@@ -18,6 +18,7 @@ jobs:
         run: pip install -r requirements.txt
       
       - name: Run comparator
+        id: wandb-report
         run: python wandb_comparator.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -27,12 +28,19 @@ jobs:
           WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
 
       - name: Add 'experiment-linked' label to PR
+        if: steps.wandb-report.outcome == 'success' 
         uses: actions/github-script@v6
         with:
-          script: |
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['experiment-linked']
-            })
+          # GitHub Actions cannot be triggered from another
+          # GitHub Action to prevent infinite triggering loops
+          # We have to use a Personal Access Token
+          # so can trigger check_linked_exp.yml
+          # (tipically we use create a dummy account for this)
+          github-token: ${{ secrets.MY_PAT }} # We have to use our own token because we want to trigger another action
+          script: |            
+              github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ["experiment-linked"]
+              });
