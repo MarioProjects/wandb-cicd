@@ -11,7 +11,8 @@ jobs:
     if: (github.event.issue.pull_request != null) && contains(github.event.comment.body, '/wandb-comparator')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Get repo contents
+        uses: actions/checkout@v3
       
       - name: Install dependencies
         run: pip install -r requirements.txt
