@@ -23,3 +23,4 @@ jobs:
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.issue.number }} 
           PR_MESSAGE: ${{ github.event.comment.body }}
+          WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
