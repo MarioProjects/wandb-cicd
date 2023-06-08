@@ -66,6 +66,11 @@ pg = wr.PanelGrid(
 report.blocks = report.blocks[:1] + [pg] + report.blocks[1:]
 report.save()
 
+# if not running in CI, open the report in the browser
+# This is specially useful for testing the script locally instead of in CI
+if not os.get_env("CI"):
+    print("Report URL: ", report.url)
+    exit(0)
 
 # 4. Comment on the Pull Request with the URL with the comparison report (*chatops*)
 # Create a comment on the PR with the report
