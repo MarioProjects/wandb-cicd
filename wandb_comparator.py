@@ -74,7 +74,7 @@ if not os.getenv("CI"):
 
 # 4. Comment on the Pull Request with the URL with the comparison report (*chatops*)
 # Create a comment on the PR with the report
-owner,repo = os.environ['REPO'].split('/')
+owner, repo = os.environ['REPO'].split('/')
 gh_api = GhApi(owner=owner, repo=repo)
 
 pr_number = os.environ['PR_NUMBER']
